@@ -6,7 +6,7 @@ const Product= [{
     category: 'Shoes',
     seller: 'AMZ Seller Ghz',
     price: 1999,
-    
+    quantity:1
   },
   {
     id:2,
@@ -14,7 +14,8 @@ const Product= [{
     name: 'LOREM Watch Black',
     category: 'Watches',
     seller: 'Watch Ltd Siyana',
-    price: 2599
+    price: 2599,
+    quantity:1
   },
   {
     id:3,
@@ -22,7 +23,8 @@ const Product= [{
     name: 'AMZ Laptop 8GB RAM',
     category: 'Laptops',
     seller: 'Delhi Laptops',
-    price: 50000
+    price: 50000,
+    quantity:1
   },
   {
     id:4, 
@@ -30,7 +32,8 @@ const Product= [{
     name: 'Security Camera',
     category: 'CCTV',
     seller: 'Camron LTD',
-    price: 4000
+    price: 4000,
+    quantity:1
   },
 ]
 export default Product;
