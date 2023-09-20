@@ -1,39 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Cartlist({cartitem})
+function Cartlist(props)
 {
-    const[cart,setcart]=useState('')
-   
+   // console.log(props)
+    //const[cart,setcart]=useState([])
+
+    const[CART,setCART]=useState([])
     
-    const increase= (i) => {
-        const updatedCart = [...cartitem];
-        console.log(updatedCart[i].quantity)
-        updatedCart[i].quantity += 1;
-        // console.log(updatedCart.quantity)
-        //  setcart(updatedCart);
-        };
-        
-        const handleQuantityChange = (event, index) => {
-         const newQuantity = parseInt(event.target.value);
-            if (!isNaN(newQuantity) && newQuantity >= 1) {
-             const updatedCart = [...cart];
-             updatedCart[index].quantity = newQuantity;
-            setcart(updatedCart);
-             }
-             };
+
+    useEffect(()=>{
+        setCART(props.cartitem)
+    },[props.cartitem])
+
+// FOR REMOVE ITEM FROM CART
+
+   const Remove = (item)=>{
+    console.log(item)
+    const del = CART.filter(del=>del.id!==item.id);
+    props.data(del)
+   }
+
+
 
     return( 
         <>
        {
-        cartitem.map((item,i)=>{
+        CART.map((item,index)=>{
+            // console.log(item)
             return(
                 <>
                  <div>
-                <img src={item.url} width={50}/>
-                 <span><b>{item.name}</b></span>  
-                 <input className='input' type="number"  onChange={(event,i) => handleQuantityChange(event,item.id)}/> 
-                 <button className="delete" type="button" onClick={increase(i)}>+</button>
-                 <b> RS{item.price}</b>/-
+        <img src={item.url} width={50}/>  
+         <span><b>{item.name}</b></span>  
+                 <button type="button"
+                      onClick={()=>{
+                         const abc = CART.map((newitem,newindex)=>{   
+                           return index === newindex && item.quantity>1 ? {...newitem, quantity: newitem.quantity -1} : newitem 
+                     })
+                   setCART(abc)
+                 }}>-</button>
+
+         <span><b>{item.quantity}</b></span>
+
+                 <button onClick={()=>{
+                       const abc = CART.map((newitem,newindex)=>{   
+                          return index === newindex  ? {...newitem, quantity: newitem.quantity +1} : newitem 
+                       })
+                     setCART(abc)
+                 }}
+                 >+</button> 
+                 <b> RS{item.price * item.quantity}</b>/-
+                 <button className="btn btn-danger"onClick={()=>Remove(item)}>REMOVE</button>
                 </div>
                 </>
             )
@@ -42,7 +59,7 @@ function Cartlist({cartitem})
        <div>
        <b> total $:</b>
         {
-       cartitem.map((item)=>item.price).reduce((previous,next)=>previous + next,0)
+     CART.map((item)=>item.price * item.quantity).reduce((previous,next)=>previous + next,0)
         }
        </div>
         </>

@@ -8,8 +8,9 @@ function ProductShow()
 {
    
     const [cart,setcart]=useState([])
-
+    
     const addtocart = (pro)=>{
+        
          // console.log(pro)
         if(cart.some((item)=>item.id===pro.id))
         {
@@ -20,12 +21,18 @@ function ProductShow()
             // alert("PRODUCT ADDED IN YOUR'S CART")
             setcart([...cart,pro])
         }
+
+    
  
+    }
+
+    const del = (del)=>{
+        setcart(del)
     }
     return(
        <>
        <Header count={cart.length}/>
-       <Cartlist cartitem={cart}/>
+       <Cartlist cartitem={cart} data={del}/>
        {
         Product.map((pro)=>{
             return(
@@ -36,7 +43,7 @@ function ProductShow()
                 <h5 className="card-title"><b>{pro.name}</b></h5>
                 <p className="card-seller"><b>{pro.seller}</b></p>
                 <p className="card-price"><b>{pro.price}</b></p>
-                <button type="button" classNameName="btn btn-primary" onClick={()=>addtocart(pro)} >ADD TO CART</button>
+                <button type="button" classNameName="btn btn-info" onClick={()=>addtocart(pro)} >ADD TO CART</button>
            </div>
         </div>   
                 </>

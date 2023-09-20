@@ -1,6 +1,4 @@
 import Productshow from './components/productshow'
-
-
 function App() {
   return (
     <>
